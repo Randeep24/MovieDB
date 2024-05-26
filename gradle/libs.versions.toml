@@ -13,6 +13,7 @@ hilt = "2.51.1"
 okHttpInterceptor = "4.12.0"
 retrofit = "2.11.0"
 moshi = "1.9.3"
+navigation = "2.7.7"
 
 # ------- dependencies ----------
 [libraries]
@@ -21,6 +22,9 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation"}
+androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation"}
 
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 

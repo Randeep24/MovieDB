@@ -36,6 +36,10 @@ android {
         kotlinOptions {
                 jvmTarget = "17"
         }
+
+        buildFeatures {
+                viewBinding = true
+        }
 }
 
 dependencies {
@@ -53,6 +57,8 @@ dependencies {
         implementation(libs.squareup.moshi)
         implementation(libs.squareup.okhttp.interceptor)
 
+        implementation(libs.androidx.navigation.fragment)
+        implementation(libs.androidx.navigation.ui)
 
         testImplementation(libs.junit)
         androidTestImplementation(libs.androidx.junit)
