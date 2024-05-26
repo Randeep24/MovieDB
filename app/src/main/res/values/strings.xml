@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MovieDB</string>
+
+    <string name="no_internet_service">Internet connection is not available. Please try again</string>
+    <string name="network_timed_out">Sorry! Your request timed out. Please try again later.</string>
+    <string name="network_io_error">Unable to process your request, please try again later!</string>
+    <string name="network_error">Something went wrong. Please try again later!</string>
 </resources>

@@ -49,6 +49,10 @@ dependencies {
         implementation(libs.hilt.android)
         kapt(libs.hilt.compiler)
 
+        implementation(libs.squareup.retrofit)
+        implementation(libs.squareup.moshi)
+        implementation(libs.squareup.okhttp.interceptor)
+
 
         testImplementation(libs.junit)
         androidTestImplementation(libs.androidx.junit)
