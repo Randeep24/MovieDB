@@ -1,5 +1,6 @@
 package com.randeep.moviedb.data.remote.di
 
+import com.randeep.moviedb.data.remote.movie.MovieApi
 import com.randeep.moviedb.data.remote.networkUtil.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -48,4 +49,10 @@ object NetworkModule {
                         .addConverterFactory(MoshiConverterFactory.create(moshi))
                         .client(okHttpClient)
                         .build()
+
+
+        @Singleton
+        @Provides
+        fun providesMovieApi(retrofit: Retrofit): MovieApi =
+                retrofit.create(MovieApi::class.java)
 }
