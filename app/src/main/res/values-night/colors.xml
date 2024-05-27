@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="search_bar_background">#5A5562</color>
+    <color name="search_bar_icon">#e7dfec</color>
+    <color name="search_hint_color">#9FE7DFEC</color>
+    <color name="image_background">#ABA5B3</color>
+</resources>

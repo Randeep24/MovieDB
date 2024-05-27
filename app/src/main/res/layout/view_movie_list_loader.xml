@@ -5,9 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ProgressBar
-        android:layout_margin="15dp"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_margin="@dimen/pagination_loader_margin"
+        android:layout_width="@dimen/pagination_loader_width_height"
+        android:layout_height="@dimen/pagination_loader_width_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

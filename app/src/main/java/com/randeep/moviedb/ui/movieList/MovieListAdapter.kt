@@ -70,7 +70,7 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
                 when (holder) {
                         is MovieViewHolder -> {
                                 holder.bind(movieList[position])
-                                if (position == movieList.size - 3 && moreItemsToLoad) {
+                                if (position == movieList.size - 4 && moreItemsToLoad) {
                                         movieListItemListener.addMoreItemsListener()
                                 }
                         }

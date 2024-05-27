@@ -7,4 +7,12 @@
     <string name="network_error">Something went wrong. Please try again later!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detail">Detail</string>
+    <string name="year_heading">Year:</string>
+    <string name="search">Search\n</string>
+    <string name="search_hint_text">Add text above to search your\nfavorite movie or series !!</string>
+    <string name="movie_not_found">Movie not found!</string>
+    <string name="retry">RETRY</string>
+    <string name="search_icon">Search Icon\n</string>
+    <string name="close_button">Search text clear button</string>
 </resources>

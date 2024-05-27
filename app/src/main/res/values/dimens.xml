@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pagination_loader_margin">20dp</dimen>
+    <dimen name="pagination_loader_width_height">45dp</dimen>
+
+
+    <dimen name="movie_list_item_margin_top_bottom">5dp</dimen>
+    <dimen name="movie_list_item_padding">10dp</dimen>
+    <dimen name="movie_list_item_poster_width_height">100dp</dimen>
+    <dimen name="movie_list_item_type_width_height">15dp</dimen>
+    <dimen name="movie_list_item_margin">5dp</dimen>
+    <dimen name="movie_title_margin">10dp</dimen>
+    <dimen name="movie_year_margin">5dp</dimen>
+    <dimen name="detail_button_height">40dp</dimen>
+
+    <dimen name="movie_title_text_size">15sp</dimen>
+    <dimen name="movie_year_text_size">14sp</dimen>
+    <dimen name="detail_button_text_size">13sp</dimen>
+
+
+    <dimen name="search_bar_height">55dp</dimen>
+    <dimen name="search_bar_margin_start_end">20dp</dimen>
+    <dimen name="search_bar_margin_top">25dp</dimen>
+    <dimen name="search_bar_icon_width_height">24dp</dimen>
+    <dimen name="search_bar_icon_margin">16dp</dimen>
+    <dimen name="search_bar_text_margin_start_end">16dp</dimen>
+    <dimen name="searched_movies_view_margin">25dp</dimen>
+    <dimen name="search_hint_image_height_width">130dp</dimen>
+    <dimen name="search_hint_text_margin">10dp</dimen>
+    <dimen name="progress_bar_height_width">60dp</dimen>
+
+    <dimen name="search_bar_text_size">16sp</dimen>
+    <dimen name="search_hint_text_size">18sp</dimen>
+
+</resources>

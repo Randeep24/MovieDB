@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
+import com.randeep.moviedb.R
 import com.randeep.moviedb.data.remote.networkUtil.HTTPError
 import com.randeep.moviedb.data.remote.networkUtil.IOError
 import com.randeep.moviedb.data.remote.networkUtil.NoInternet
@@ -121,7 +122,7 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
                                         )
 
                                         is Other -> {
-                                                if(remoteError.message == "Movie not found!") {
+                                                if(remoteError.message == getString(R.string.movie_not_found)) {
                                                         binding.searchedMoviesRecyclerView.visibility = View.GONE
                                                 }
                                                 remoteError.message
@@ -142,7 +143,7 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
 
                                 if (remoteError is NoInternet || remoteError is TimeOut) {
 
-                                        snackbar.setAction("RETRY") {
+                                        snackbar.setAction(getString(R.string.retry)) {
                                                 viewModel.retryApiCall()
                                         }
                                 }

@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="search_bar_background">#e7dfec</color>
+    <color name="search_bar_icon">#38353e</color>
+    <color name="search_hint_color">#38353e</color>
+    <color name="message">#958da4</color>
+    <color name="progress_bar_background_color">#57000000</color>
+    <color name="image_background">#CCC2DB</color>
 </resources>
