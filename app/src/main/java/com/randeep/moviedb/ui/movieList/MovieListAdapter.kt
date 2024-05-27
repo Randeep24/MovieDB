@@ -1,5 +1,6 @@
 package com.randeep.moviedb.ui.movieList
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -88,13 +89,13 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
                 }
         }
 
-        class LoadingViewHolder(private val binding: ViewMovieListLoaderBinding) :
+        class LoadingViewHolder(binding: ViewMovieListLoaderBinding) :
                 RecyclerView.ViewHolder(binding.root)
 
+        @SuppressLint("NotifyDataSetChanged")
         fun submitList(movies: ArrayList<Movie>, totalSearchedResults: Int) {
 
-                movieList.clear()
-                movieList.addAll(movies)
+                movieList = movies
                 totalSearchedItems = totalSearchedResults
                 setIsMoreItemsNeedToLoaded()
                 notifyDataSetChanged()
@@ -103,9 +104,9 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
 
         fun addMoreListItems(movies: ArrayList<Movie>) {
                 val currentMovieItemCount = movieList.size
-                movieList.addAll(movies)
+                movieList = movies
                 setIsMoreItemsNeedToLoaded()
-                notifyItemRangeChanged(currentMovieItemCount, movies.size)
+                notifyItemRangeChanged(currentMovieItemCount, movies.size - currentMovieItemCount)
         }
 
         private fun setIsMoreItemsNeedToLoaded() {

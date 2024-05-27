@@ -20,7 +20,7 @@ class MovieListSearchViewModel @Inject constructor(
         private val _movieList = MutableLiveData<ArrayList<Movie>>()
         val movieList: LiveData<ArrayList<Movie>> = _movieList
 
-        private val _loading = MutableLiveData<Boolean>(false)
+        private val _loading = MutableLiveData(false)
         val loading: LiveData<Boolean> = _loading
 
         private val _remoteError = MutableLiveData<RemoteError>()
@@ -32,10 +32,12 @@ class MovieListSearchViewModel @Inject constructor(
 
 
         fun searchMovieList(searchText: String) {
-                if (pageNumber == 0 || lastSearchedText != searchText) _loading.value = true
-                lastSearchedText = searchText
-                pageNumber = 0
-                getMovieList()
+                if (pageNumber == 0 || lastSearchedText != searchText) {
+                        _loading.value = true
+                        lastSearchedText = searchText
+                        pageNumber = 0
+                        getMovieList()
+                }
         }
 
         fun getMovieList() {
@@ -47,10 +49,16 @@ class MovieListSearchViewModel @Inject constructor(
                                         ++pageNumber
                                 )) {
                                 is RemoteResult.Success -> {
-
+                                        val movies = if (pageNumber != 1) {
+                                                _movieList.value ?: arrayListOf()
+                                        } else {
+                                                arrayListOf()
+                                        }
                                         totalNumberOfResults = result.value.totalResults
 
-                                        _movieList.value = result.value.movies as? ArrayList
+                                        val moviesResult = result.value.movies as ArrayList<Movie>
+                                        movies.addAll(moviesResult)
+                                        _movieList.value = movies
                                         _loading.value = false
                                 }
 
@@ -72,7 +80,7 @@ class MovieListSearchViewModel @Inject constructor(
 
         fun retryApiCall() {
                 pageNumber--
-                if(pageNumber == 0) _loading.value = true
+                if (pageNumber == 0) _loading.value = true
                 getMovieList()
         }
 }

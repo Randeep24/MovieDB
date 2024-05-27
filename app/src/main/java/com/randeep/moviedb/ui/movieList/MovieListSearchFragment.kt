@@ -67,9 +67,8 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
                 binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                                 if (binding.searchEditText.text.toString().isEmpty().not()) {
-                                        viewModel.searchMovieList(binding.searchEditText.text.toString())
+                                        viewModel.searchMovieList(binding.searchEditText.text.toString().trim())
                                         binding.searchHintContainer.visibility = View.GONE
-                                        binding.searchedMoviesRecyclerView.visibility = View.VISIBLE
                                 }
                                 hideKeyboard()
                         }
@@ -79,10 +78,11 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
 
         private fun initializeObservers() {
 
-                viewModel.movieList.observe(this) {
+                viewModel.movieList.observe(viewLifecycleOwner) {
                         it?.let {
+                                binding.searchedMoviesRecyclerView.visibility = View.VISIBLE
+                                binding.searchHintContainer.visibility = View.GONE
                                 if (viewModel.getPageNumber() == 1) {
-                                        binding.searchedMoviesRecyclerView.visibility = View.VISIBLE
                                         movieListAdapter.submitList(
                                                 it,
                                                 viewModel.getTotalNumberOfSearchResults()
@@ -96,7 +96,7 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
 
                 }
 
-                viewModel.loading.observe(this) {
+                viewModel.loading.observe(viewLifecycleOwner) {
                         it?.let { isLoading ->
                                 when (isLoading) {
                                         true -> binding.progressBarContainer.visibility =
@@ -107,7 +107,7 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
                         }
                 }
 
-                viewModel.remoteError.observe(this) {
+                viewModel.remoteError.observe(viewLifecycleOwner) {
                         it?.let { remoteError ->
 
 
@@ -120,13 +120,18 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
                                                 remoteError.messageResId
                                         )
 
-                                        is Other -> remoteError.message
-                                                ?: getString(remoteError.messageResId)
+                                        is Other -> {
+                                                if(remoteError.message == "Movie not found!") {
+                                                        binding.searchedMoviesRecyclerView.visibility = View.GONE
+                                                }
+                                                remoteError.message
+                                                        ?: getString(remoteError.messageResId)
+                                        }
                                 }
 
                                 val snackbar = Snackbar.make(
                                         binding.root,
-                                        getString(remoteError.messageResId),
+                                        message,
 
                                         if (remoteError is NoInternet || remoteError is TimeOut) {
                                                 Snackbar.LENGTH_INDEFINITE
