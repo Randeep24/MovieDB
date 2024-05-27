@@ -37,9 +37,7 @@ fun getHttpErrorMessage(responseBody: ResponseBody?): String? {
         return try {
                 val jsonObject = JSONObject(responseBody!!.string())
                 when {
-                        jsonObject.has("error") -> jsonObject.getString("error")
-                        jsonObject.has("message") -> jsonObject.getString("message")
-                        jsonObject.has("Message") -> jsonObject.getString("Message")
+                        jsonObject.has("Error") -> jsonObject.getString("Error")
                         else -> null
                 }
         } catch (e: Exception) {

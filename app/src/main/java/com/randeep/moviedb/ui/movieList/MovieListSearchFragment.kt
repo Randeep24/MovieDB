@@ -1,60 +1,160 @@
 package com.randeep.moviedb.ui.movieList
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.randeep.moviedb.R
+import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
+import com.randeep.moviedb.data.remote.networkUtil.HTTPError
+import com.randeep.moviedb.data.remote.networkUtil.IOError
+import com.randeep.moviedb.data.remote.networkUtil.NoInternet
+import com.randeep.moviedb.data.remote.networkUtil.Other
+import com.randeep.moviedb.data.remote.networkUtil.TimeOut
+import com.randeep.moviedb.databinding.FragmentMovieListSearchBinding
+import com.randeep.moviedb.util.hideKeyboard
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MovieListSearchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MovieListSearchFragment : Fragment() {
-        // TODO: Rename and change types of parameters
-        private var param1: String? = null
-        private var param2: String? = null
+@AndroidEntryPoint
+class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListener {
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-                super.onCreate(savedInstanceState)
-                arguments?.let {
-                        param1 = it.getString(ARG_PARAM1)
-                        param2 = it.getString(ARG_PARAM2)
-                }
-        }
+        private var _binding: FragmentMovieListSearchBinding? = null
+
+        private val binding get() = _binding!!
+
+        private val viewModel: MovieListSearchViewModel by viewModels()
+
+        private lateinit var movieListAdapter: MovieListAdapter
 
         override fun onCreateView(
                 inflater: LayoutInflater, container: ViewGroup?,
                 savedInstanceState: Bundle?
-        ): View? {
-                // Inflate the layout for this fragment
-                return inflater.inflate(R.layout.fragment_movie_list_search, container, false)
+        ): View {
+                _binding = FragmentMovieListSearchBinding.inflate(inflater, container, false)
+                val view = binding.root
+                return view
         }
 
-        companion object {
-                /**
-                 * Use this factory method to create a new instance of
-                 * this fragment using the provided parameters.
-                 *
-                 * @param param1 Parameter 1.
-                 * @param param2 Parameter 2.
-                 * @return A new instance of fragment MovieListSearchFragment.
-                 */
-                // TODO: Rename and change types and number of parameters
-                @JvmStatic
-                fun newInstance(param1: String, param2: String) =
-                        MovieListSearchFragment().apply {
-                                arguments = Bundle().apply {
-                                        putString(ARG_PARAM1, param1)
-                                        putString(ARG_PARAM2, param2)
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+                super.onViewCreated(view, savedInstanceState)
+
+                movieListAdapter = MovieListAdapter(this)
+                binding.searchedMoviesRecyclerView.adapter = movieListAdapter
+
+                initializeSearchBar()
+                initializeObservers()
+        }
+
+        private fun initializeSearchBar() {
+
+                binding.searchEditText.addTextChangedListener {
+                        val text = it?.toString() ?: ""
+                        when (text.isEmpty()) {
+                                true -> binding.searchCloseImageView.visibility = View.GONE
+                                else -> binding.searchCloseImageView.visibility = View.VISIBLE
+                        }
+                }
+
+                binding.searchCloseImageView.setOnClickListener {
+                        binding.searchEditText.setText("")
+                        hideKeyboard()
+                }
+
+                binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                                if (binding.searchEditText.text.toString().isEmpty().not()) {
+                                        viewModel.searchMovieList(binding.searchEditText.text.toString())
+                                        binding.searchHintContainer.visibility = View.GONE
+                                        binding.searchedMoviesRecyclerView.visibility = View.VISIBLE
+                                }
+                                hideKeyboard()
+                        }
+                        false
+                }
+        }
+
+        private fun initializeObservers() {
+
+                viewModel.movieList.observe(this) {
+                        it?.let {
+                                if (viewModel.getPageNumber() == 1) {
+                                        binding.searchedMoviesRecyclerView.visibility = View.VISIBLE
+                                        movieListAdapter.submitList(
+                                                it,
+                                                viewModel.getTotalNumberOfSearchResults()
+                                        )
+                                } else {
+                                        movieListAdapter.addMoreListItems(
+                                                movies = it,
+                                        )
                                 }
                         }
+
+                }
+
+                viewModel.loading.observe(this) {
+                        it?.let { isLoading ->
+                                when (isLoading) {
+                                        true -> binding.progressBarContainer.visibility =
+                                                View.VISIBLE
+
+                                        else -> binding.progressBarContainer.visibility = View.GONE
+                                }
+                        }
+                }
+
+                viewModel.remoteError.observe(this) {
+                        it?.let { remoteError ->
+
+
+                                val message = when (remoteError) {
+                                        is NoInternet, is TimeOut, is IOError -> getString(
+                                                remoteError.messageResId
+                                        )
+
+                                        is HTTPError -> remoteError.httpErrorMessage ?: getString(
+                                                remoteError.messageResId
+                                        )
+
+                                        is Other -> remoteError.message
+                                                ?: getString(remoteError.messageResId)
+                                }
+
+                                val snackbar = Snackbar.make(
+                                        binding.root,
+                                        getString(remoteError.messageResId),
+
+                                        if (remoteError is NoInternet || remoteError is TimeOut) {
+                                                Snackbar.LENGTH_INDEFINITE
+                                        } else {
+                                                Snackbar.LENGTH_SHORT
+                                        }
+                                )
+
+                                if (remoteError is NoInternet || remoteError is TimeOut) {
+
+                                        snackbar.setAction("RETRY") {
+                                                viewModel.retryApiCall()
+                                        }
+                                }
+
+                                snackbar.show()
+                        }
+                }
         }
+
+        override fun onDestroyView() {
+                super.onDestroyView()
+                _binding = null
+        }
+
+        override fun addMoreItemsListener() {
+                viewModel.getMovieList()
+        }
+
+
 }

@@ -37,4 +37,5 @@ data class HTTPError(
 data class Other(
         override val throwable: Throwable,
         override val messageResId: Int = R.string.network_error,
+        val message: String? = null
 ): RemoteError()

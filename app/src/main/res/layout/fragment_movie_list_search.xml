@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="25dp"
-    android:layout_marginEnd="20dp"
     tools:context=".ui.movieList.MovieListSearchFragment">
 
     <View
         android:id="@+id/search_bar_background"
         android:layout_width="0dp"
         android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/background_search_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +39,10 @@
         android:hint="Search"
         android:textColorHint="#38353e"
         android:textSize="16sp"
+        android:lines="1"
+        android:maxLines="1"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@id/search_bar_background"
         app:layout_constraintEnd_toStartOf="@id/search_close_image_view"
         app:layout_constraintStart_toEndOf="@id/search_icon_image_view"
@@ -61,11 +65,75 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="25dp"
-        android:clipToPadding="true"
+        android:clipToPadding="false"
         android:paddingBottom="25dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/search_bar_background"
+        app:layout_constraintStart_toStartOf="@id/search_bar_background"
+        app:layout_constraintTop_toBottomOf="@id/search_bar_background"
+        tools:listitem="@layout/view_movie_item" />
+
+    <ImageView
+        android:id="@+id/search_hint_image_view"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:alpha=".6"
+        android:src="@drawable/img_search_above"
+        app:layout_constraintBottom_toTopOf="@id/search_hint_heading_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_bar_background" />
+        app:layout_constraintTop_toBottomOf="@id/search_bar_background"
+        app:layout_constraintVertical_bias="0.39"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/search_hint_heading_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#958da4"
+        android:text="Add text above to search your\nfavorite movie or series !!"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_hint_image_view"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/search_hint_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="search_hint_image_view, search_hint_heading_text_view"/>
+
+    <View
+        android:id="@+id/progress_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#57000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/progress_bar_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="progress_background, progress_bar"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

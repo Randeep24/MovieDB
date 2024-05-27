@@ -1,6 +1,8 @@
 package com.randeep.moviedb.data.remote.di
 
 import com.randeep.moviedb.data.remote.movie.MovieApi
+import com.randeep.moviedb.data.remote.movie.MovieRemoteDataSource
+import com.randeep.moviedb.data.remote.movie.MovieRemoteDataSourceImpl
 import com.randeep.moviedb.data.remote.networkUtil.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -55,4 +57,9 @@ object NetworkModule {
         @Provides
         fun providesMovieApi(retrofit: Retrofit): MovieApi =
                 retrofit.create(MovieApi::class.java)
+
+        @Singleton
+        @Provides
+        fun providesMovieRemoteDataSource(movieApi: MovieApi): MovieRemoteDataSource =
+                MovieRemoteDataSourceImpl(movieApi)
 }
