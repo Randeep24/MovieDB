@@ -2,11 +2,17 @@ package com.randeep.moviedb.data.remote.networkUtil
 
 import com.randeep.moviedb.R
 
+/**
+ * sealed class to handle remote result
+ */
 sealed class RemoteResult<out T> {
         data class Success<out T>(val value: T): RemoteResult<T>()
         data class Error(val remoteError: RemoteError): RemoteResult<Nothing>()
 }
 
+/**
+ * class to handle exceptions of api calls
+ */
 sealed class RemoteError {
         abstract val throwable: Throwable
         abstract val messageResId: Int

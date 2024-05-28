@@ -7,6 +7,9 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
+/**
+ * inline function for handling api calls response
+ */
 inline fun <T> safeApiCall(apiCall: () -> T): RemoteResult<T> {
         return try {
                 RemoteResult.Success(apiCall.invoke())
@@ -33,6 +36,9 @@ inline fun <T> safeApiCall(apiCall: () -> T): RemoteResult<T> {
         }
 }
 
+/**
+ * function to fetch error message from http exception response body
+ */
 fun getHttpErrorMessage(responseBody: ResponseBody?): String? {
         return try {
                 val jsonObject = JSONObject(responseBody!!.string())

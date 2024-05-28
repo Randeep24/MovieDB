@@ -5,6 +5,9 @@ import com.randeep.moviedb.data.model.MovieList
 import com.randeep.moviedb.data.remote.movie.model.MovieRemote
 import com.randeep.moviedb.data.remote.movie.model.MovieSearchResponse
 
+/**
+ * mapper class to convert remote model to domain model
+ */
 fun MovieRemote.asDomainModel() =  Movie(
         imdbId = imdbId,
 

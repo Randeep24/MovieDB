@@ -16,6 +16,10 @@ retrofit = "2.11.0"
 moshi = "1.9.3"
 navigation = "2.7.7"
 coil = "2.6.0"
+mockwebserver = "4.12.0"
+mockk = "1.13.11"
+coroutinesTest = "1.6.4"
+coreTest = "2.1.0"
 
 # ------- dependencies ----------
 [libraries]
@@ -34,15 +38,23 @@ material = { group = "com.google.android.material", name = "material", version.r
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-
 squareup-retrofit = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 squareup-okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpInterceptor" }
 squareup-moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTest" }
+
+jetbrains-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref ="coroutinesTest" }
+
+mock-webserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "mockwebserver"}
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+
+
 
 # ------- plugins ----------
 [plugins]

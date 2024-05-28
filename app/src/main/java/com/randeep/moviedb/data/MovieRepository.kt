@@ -32,6 +32,7 @@ class MovieRepositoryImpl @Inject constructor(
                                 if(movieList.response) {
                                         return@withContext RemoteResult.Success(movieList)
                                 } else {
+                                        // if movie list is empty, send remote error with error message
                                         return@withContext RemoteResult.Error(Other(Throwable(), message = movieList.errorMessage))
                                 }
 

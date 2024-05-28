@@ -52,6 +52,7 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
 
         private fun initializeSearchBar() {
 
+                // text change listener is used to show the visibility of clear button
                 binding.searchEditText.addTextChangedListener {
                         val text = it?.toString() ?: ""
                         when (text.isEmpty()) {
@@ -60,11 +61,13 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
                         }
                 }
 
+                // clearing search text and closing keyboar when close button is clicked
                 binding.searchCloseImageView.setOnClickListener {
                         binding.searchEditText.setText("")
                         hideKeyboard()
                 }
 
+                // calling api when search button is clicked in keyboard
                 binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                                 if (binding.searchEditText.text.toString().isEmpty().not()) {
@@ -83,6 +86,8 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
                         it?.let {
                                 binding.searchedMoviesRecyclerView.visibility = View.VISIBLE
                                 binding.searchHintContainer.visibility = View.GONE
+
+                                // checking if the list is new or the old one
                                 if (viewModel.getPageNumber() == 1) {
                                         movieListAdapter.submitList(
                                                 it,

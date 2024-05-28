@@ -103,8 +103,10 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
                 }
         }
 
+        // holder class to show loader while fetching more data
         class LoadingViewHolder(binding: ViewMovieListLoaderBinding) :
                 RecyclerView.ViewHolder(binding.root)
+
 
         @SuppressLint("NotifyDataSetChanged")
         fun submitList(movies: ArrayList<Movie>, totalSearchedResults: Int) {
@@ -112,10 +114,14 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
                 movieList = movies
                 totalSearchedItems = totalSearchedResults
                 setIsMoreItemsNeedToLoaded()
+
+                // when different text is searched,
+                // need to tell notify adapter that whole list will be created again
                 notifyDataSetChanged()
 
         }
 
+        // function to add more movies in existing list
         fun addMoreListItems(movies: ArrayList<Movie>) {
                 val currentMovieItemCount = movieList.size
                 movieList = movies
@@ -123,6 +129,7 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
                 notifyItemRangeChanged(currentMovieItemCount, movies.size - currentMovieItemCount)
         }
 
+        // function to know the end of the list, to know when to show loader at the bottom
         private fun setIsMoreItemsNeedToLoaded() {
                 moreItemsToLoad = (movieList.size == totalSearchedItems).not()
         }

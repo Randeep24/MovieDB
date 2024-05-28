@@ -1,0 +1,27 @@
+{
+  "Search": [
+    {
+      "Title": "TRT Her Dem Huner",
+      "Year": "2012–2013",
+      "imdbID": "tt9302230",
+      "Type": "series",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BODIwOGY1YjUtMWE2MS00YzcyLWE4NjktYjM3MDE4Y2MxMzlkXkEyXkFqcGdeQXVyODUxNzQyODU@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Yeni Sahne: TRT Muzik",
+      "Year": "2021",
+      "imdbID": "tt18345426",
+      "Type": "series",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Armoni: TRT Müzik",
+      "Year": "2021",
+      "imdbID": "tt18345484",
+      "Type": "series",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BYmYwZGUyYjUtYTkzOS00M2JlLWJhYTktYzRiMGYzNjRkNDkyXkEyXkFqcGdeQXVyNzkyMTc1Nzg@._V1_SX300.jpg"
+    }
+  ],
+  "totalResults": "3",
+  "Response": "True"
+}

@@ -32,10 +32,13 @@ class MovieListSearchViewModel @Inject constructor(
 
 
         fun searchMovieList(searchText: String) {
+
+                // if search text is new, then clearing all the properties related to movie list
                 if (pageNumber == 0 || lastSearchedText != searchText) {
                         _loading.value = true
                         lastSearchedText = searchText
                         pageNumber = 0
+                        _movieList.value = arrayListOf()
                         getMovieList()
                 }
         }
@@ -49,11 +52,8 @@ class MovieListSearchViewModel @Inject constructor(
                                         ++pageNumber
                                 )) {
                                 is RemoteResult.Success -> {
-                                        val movies = if (pageNumber != 1) {
-                                                _movieList.value ?: arrayListOf()
-                                        } else {
-                                                arrayListOf()
-                                        }
+                                        val movies = _movieList.value ?: arrayListOf()
+
                                         totalNumberOfResults = result.value.totalResults
 
                                         val moviesResult = result.value.movies as ArrayList<Movie>
@@ -78,6 +78,7 @@ class MovieListSearchViewModel @Inject constructor(
                 return totalNumberOfResults
         }
 
+        // trying to call api again if there is slow or no internet connection
         fun retryApiCall() {
                 pageNumber--
                 if (pageNumber == 0) _loading.value = true
