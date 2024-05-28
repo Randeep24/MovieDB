@@ -88,7 +88,7 @@ class MovieListSearchFragment : Fragment(), MovieListAdapter.MovieListItemListen
                                 binding.searchHintContainer.visibility = View.GONE
 
                                 // checking if the list is new or the old one
-                                if (viewModel.getPageNumber() == 1) {
+                                if (viewModel.getPageNumber() <= 1) {
                                         movieListAdapter.submitList(
                                                 it,
                                                 viewModel.getTotalNumberOfSearchResults()

@@ -71,7 +71,7 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
                 when (holder) {
                         is MovieViewHolder -> {
                                 holder.bind(movieList[position])
-                                if (position == movieList.size - 4 && moreItemsToLoad) {
+                                if (position == movieList.size - 3 && moreItemsToLoad) {
                                         movieListItemListener.addMoreItemsListener()
                                 }
                         }
@@ -110,9 +110,10 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
 
         @SuppressLint("NotifyDataSetChanged")
         fun submitList(movies: ArrayList<Movie>, totalSearchedResults: Int) {
-
-                movieList = movies
+                movieList.clear()
+                movieList.addAll(movies)
                 totalSearchedItems = totalSearchedResults
+
                 setIsMoreItemsNeedToLoaded()
 
                 // when different text is searched,
@@ -123,8 +124,10 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
 
         // function to add more movies in existing list
         fun addMoreListItems(movies: ArrayList<Movie>) {
+
                 val currentMovieItemCount = movieList.size
-                movieList = movies
+                movieList.addAll(movies.takeLast(movies.size - movieList.size))
+
                 setIsMoreItemsNeedToLoaded()
                 notifyItemRangeChanged(currentMovieItemCount, movies.size - currentMovieItemCount)
         }
