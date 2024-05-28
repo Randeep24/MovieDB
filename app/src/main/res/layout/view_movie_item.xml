@@ -14,56 +14,56 @@
         android:id="@+id/movie_image_view"
         android:layout_width="@dimen/movie_list_item_poster_width_height"
         android:layout_height="@dimen/movie_list_item_poster_width_height"
-        android:scaleType="centerCrop"
         android:background="@color/image_background"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="contentDescription"
-       />
+        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/type_image_view"
         android:layout_width="@dimen/movie_list_item_type_width_height"
         android:layout_height="@dimen/movie_list_item_type_width_height"
         android:layout_margin="@dimen/movie_list_item_margin"
-        android:visibility="gone"
-        android:src="@drawable/icon_movie"
         app:layout_constraintStart_toStartOf="@id/movie_image_view"
         app:layout_constraintTop_toTopOf="@id/movie_image_view"
-        tools:ignore="contentDescription"/>
+        tools:ignore="contentDescription"
+        tools:src="@drawable/icon_movie" />
 
     <TextView
         android:id="@+id/movie_title_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/movie_title_margin"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:textSize="@dimen/movie_title_text_size"
         android:textStyle="bold"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:layout_marginTop="@dimen/movie_title_margin"
-        android:layout_marginStart="@dimen/movie_title_margin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/movie_image_view"
         app:layout_constraintTop_toTopOf="@id/movie_image_view"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/year_label_text_view"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="The Revenge" />
 
     <TextView
         android:id="@+id/year_label_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/movie_year_margin"
         android:text="@string/year_heading"
         android:textSize="@dimen/movie_year_text_size"
-        android:layout_marginTop="@dimen/movie_year_margin"
         app:layout_constraintStart_toStartOf="@id/movie_title_text_view"
-        app:layout_constraintTop_toBottomOf="@id/movie_title_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/movie_title_text_view"
+        app:layout_constraintBottom_toTopOf="@id/detail_button"/>
 
     <TextView
         android:id="@+id/year_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/movie_year_text_size"
         android:layout_marginStart="@dimen/movie_year_margin"
+        android:textSize="@dimen/movie_year_text_size"
         app:layout_constraintBaseline_toBaselineOf="@+id/year_label_text_view"
         app:layout_constraintStart_toEndOf="@id/year_label_text_view"
         tools:text="1975" />
@@ -74,8 +74,8 @@
         android:layout_height="@dimen/detail_button_height"
         android:text="@string/detail"
         android:textSize="@dimen/detail_button_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

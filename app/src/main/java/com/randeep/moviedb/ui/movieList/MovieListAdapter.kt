@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.randeep.moviedb.R
 import com.randeep.moviedb.data.model.Movie
 import com.randeep.moviedb.databinding.ViewMovieItemBinding
 import com.randeep.moviedb.databinding.ViewMovieListLoaderBinding
@@ -86,6 +87,19 @@ class MovieListAdapter(private val movieListItemListener: MovieListItemListener)
                         }
                         binding.movieTitleTextView.text = movie.title
                         binding.yearTextView.text = movie.year
+
+                        when(movie.type) {
+                                "movie" -> {
+                                        binding.typeImageView.setImageResource(R.drawable.icon_movie)
+                                        binding.movieImageView.contentDescription = "${movie.type} ${movie.title}"
+                                        binding.typeImageView.contentDescription = movie.type
+                                }
+                                else -> {
+                                        binding.typeImageView.setImageResource(R.drawable.icon_tv)
+                                        binding.movieImageView.contentDescription = "${movie.type} ${movie.title}"
+                                        binding.typeImageView.contentDescription = movie.type
+                                }
+                        }
                 }
         }
 
